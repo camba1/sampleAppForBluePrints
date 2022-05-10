@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    cdk8s_plus: "22"
+  name: nodeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.deployment: nodeapp-nodeappDeployment-c8952626
+  template:
+    metadata:
+      annotations:
+        cdk8s_plus: "22"
+      labels:
+        cdk8s.deployment: nodeapp-nodeappDeployment-c8952626
+      name: nodeapp
+    spec:
+      containers:
+        - env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_HOST
+                  name: nodeapp
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_NAME
+                  name: nodeapp
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PORT
+                  name: nodeapp
+            - name: DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  key: DB_PWD
+                  name: nodeapp
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: DB_USER
+                  name: nodeapp
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_HOST
+                  name: nodeapp
+            - name: REDIS_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_PASS
+                  name: nodeapp
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PORT
+                  name: nodeapp
+          image: jpperedo/sspeksdemo
+          imagePullPolicy: IfNotPresent
+          name: nodaappcont
+          ports:
+            - containerPort: 3000
+          volumeMounts: []
+      volumes: []

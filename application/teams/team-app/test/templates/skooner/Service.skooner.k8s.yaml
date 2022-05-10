@@ -1,0 +1,12 @@
+kubecapiVersion: v1
+kind: Service
+metadata:
+  name: skooner
+  namespace: kube-system
+spec:
+  ports:
+    - port: 80
+      targetPort: 4654
+  selector:
+    app: c86d5a8768f3d08ad3d8e6cf96d2ad8e4529f78826
+  type: NodePort

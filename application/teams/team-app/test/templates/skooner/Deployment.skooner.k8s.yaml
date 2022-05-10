@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skooner
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: c86d5a8768f3d08ad3d8e6cf96d2ad8e4529f78826
+  template:
+    metadata:
+      labels:
+        app: c86d5a8768f3d08ad3d8e6cf96d2ad8e4529f78826
+    spec:
+      containers:
+        - env: []
+          image: ghcr.io/skooner-k8s/skooner:stable
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 4654
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          name: skooner
+          ports:
+            - containerPort: 4654
+      nodeSelector:
+        beta.kubernetes.io/os: linux

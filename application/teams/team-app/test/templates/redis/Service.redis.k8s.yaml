@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  externalIPs: []
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    cdk8s.deployment: redis-c8d878dd
+  type: ClusterIP

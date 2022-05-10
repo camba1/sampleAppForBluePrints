@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  MYSQL_ROOT_PASSWORD: TestDB@home2
+metadata:
+  annotations:
+    cdk8s_plus: "22"
+  name: mariadb

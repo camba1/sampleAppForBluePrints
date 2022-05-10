@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    cdk8s_plus: "22"
+  name: mariadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.deployment: mariadb-mariaDbDeployment-c897590e
+  template:
+    metadata:
+      annotations:
+        cdk8s_plus: "22"
+      labels:
+        cdk8s.deployment: mariadb-mariaDbDeployment-c897590e
+      name: mariadb
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_ROOT_PASSWORD
+                  name: mariadb
+          image: mariadb
+          imagePullPolicy: IfNotPresent
+          name: mariadbcont
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d
+              name: configmap-mariadbinitdb
+      volumes:
+        - configMap:
+            name: mariadbinitdb
+          name: configmap-mariadbinitdb

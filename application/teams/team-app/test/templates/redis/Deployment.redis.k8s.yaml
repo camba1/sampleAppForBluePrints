@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    cdk8s_plus: "22"
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.deployment: redis-c8d878dd
+  template:
+    metadata:
+      annotations:
+        cdk8s_plus: "22"
+      labels:
+        cdk8s.deployment: redis-c8d878dd
+      name: redis
+    spec:
+      containers:
+        - args:
+            - sh
+            - -c
+            - redis-server
+            - --requirepass
+            - ${REDIS_PASS}
+          env:
+            - name: REDIS_PASS
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PASS
+                  name: redis
+          image: redis
+          imagePullPolicy: IfNotPresent
+          name: rediscont
+          ports:
+            - containerPort: 6379
+          volumeMounts: []
+      volumes: []
