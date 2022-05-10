@@ -1,9 +1,8 @@
-# TODO: Update this to proper repo. do we need ingress?
 spec:
   destination:
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://github.com/camba1/ssp-amazon-eks-sample
-    targetRevision: master
-  ingress:
-    host:
+    repoURL: https://github.com/camba1/sampleAppForBluePrints
+    targetRevision: main
+#  ingress:
+#    host:
