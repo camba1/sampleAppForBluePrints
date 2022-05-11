@@ -32,6 +32,13 @@ spec:
           volumeMounts:
             - mountPath: /docker-entrypoint-initdb.d
               name: configmap-mariadbinitdb
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1000Mi
+            requests:
+              cpu: "0.5"
+              memory: 500Mi
       volumes:
         - configMap:
             name: mariadbinitdb

@@ -33,6 +33,13 @@ spec:
           image: redis
           imagePullPolicy: IfNotPresent
           name: rediscont
+          resources:
+            limits:
+              cpu: "1"
+              memory: 500Mi
+            requests:
+              cpu: "0.5"
+              memory: 250Mi
           ports:
             - containerPort: 6379
           volumeMounts: []
